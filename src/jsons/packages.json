@@ -1,0 +1,44 @@
+{
+    "code": 200,
+    "data": {
+        "packages": [
+            {
+                "id": "68e3292dd4d33d3a9ff370d0",
+                "type": "Hajj",
+                "package_name": "Hajj Platinum Plus Thaif 25",
+                "duration_days": 26,
+                "inclusions": [
+                    "[\"Flight ticket\"",
+                    " \"Visa Umrah\"",
+                    " \"Hotel\"",
+                    " \"Meals 3x daily\"",
+                    " \"Tour Guide\"]"
+                ],
+                "airline": "Garuda",
+                "hotel_madinah": "Anwar Al Madinah Mövenpick",
+                "hotel_makkah": "Swissôtel Al Maqam Makkah",
+                "price_start": 999999999,
+                "banner_image_url": "uploads\\packages\\498207445_17869275399363643_1284629379205034708_n.jpg"
+            },
+            {
+                "id": "68e3354cc1b3733bb8563060",
+                "type": "Umrah",
+                "package_name": "Umrah Platinum Plus Thaif 25",
+                "duration_days": 26,
+                "inclusions": [
+                    "[\"Flight ticket\"",
+                    " \"Visa Umrah\"",
+                    " \"Hotel\"",
+                    " \"Meals 3x daily\"",
+                    " \"Tour Guide\"]"
+                ],
+                "airline": "Garuda",
+                "hotel_madinah": "Anwar Al Madinah Mövenpick",
+                "hotel_makkah": "Swissôtel Al Maqam Makkah",
+                "price_start": 24500000,
+                "banner_image_url": "C:\\Users\\HP\\Documents\\IsmiTourTravel\\uploads\\packages\\497967091_17869275390363643_4604108066082863555_n.jpg"
+            }
+        ]
+    },
+    "message": "success"
+}
