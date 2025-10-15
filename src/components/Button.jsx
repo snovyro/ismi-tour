@@ -1,18 +1,27 @@
 import React from "react";
 
 const Button = (props) => {
-  const { bgColor, bgColorHover, textColor, text, width, redirectTo } = props;
+  const {
+    bgColor = "i-yellow",
+    bgColorHover = "i-dark",
+    textColor = "i-dark",
+    text,
+    width,
+    redirectTo,
+  } = props;
+
   return (
     <div
       onClick={redirectTo}
-      style={{ width: width ? `${width}rem` : "fit-content" }}
+      style={{ width: width ? `${width}rem` : "100%" }}
       className={`
         relative overflow-hidden 
         px-8 py-4 cursor-pointer 
         bg-${bgColor}
         transition-transform duration-300 hover:scale-105
         group text-center
-        text-${textColor || "i-dark"}
+        text-${textColor}
+        
       `}
     >
       <div

@@ -7,8 +7,10 @@ import ImgFacebook from "../assets/svg/facebook-svgrepo-com.svg";
 const Footer = () => {
   return (
     <div>
-      <div className="w-full px-24 py-6 flex items-center justify-around bg-i-dark text-i-neon-green text-center">
-        <div></div>
+      {/* Top Section */}
+      <div className="w-full px-6 sm:px-12 lg:px-24 py-6 flex flex-col lg:flex-row items-center justify-center lg:justify-around bg-i-dark text-i-neon-green text-center gap-6 lg:gap-0">
+        <div className="hidden lg:block"></div>
+
         <div className="flex flex-col justify-center items-center w-24">
           <img src={ImgLogo} alt="Logo" className="h-full" />
           <div className="w-full flex justify-center items-center gap-6 mt-6">
@@ -29,9 +31,12 @@ const Footer = () => {
             />
           </div>
         </div>
-        <div></div>
+
+        <div className="hidden lg:block"></div>
       </div>
-      <div className="w-full p-6 px-48 bg-i-dark text-i-neon-green text-center">
+
+      {/* Bottom Section */}
+      <div className="w-full p-4 sm:p-6 px-6 sm:px-12 lg:px-48 bg-i-dark text-i-neon-green text-center text-sm sm:text-base">
         &copy; 2024 ISMI Tour. All rights reserved.
       </div>
     </div>

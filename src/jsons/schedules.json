@@ -1,0 +1,24 @@
+{
+    "code": 200,
+    "data": [
+        {
+            "id": "68eccb274e9b00d5656fb23d",
+            "package_name": "Umrah Platinum Plus Thaif 25",
+            "date": "0001-01-01T00:00:00Z",
+            "airline_company": "Garuda",
+            "hotel_madinah": "Anwar Al Madinah Mövenpick",
+            "hotel_makkah": "Swissôtel Al Maqam Makkah",
+            "price": 34500000
+        },
+        {
+            "id": "68eccb434e9b00d5656fb23e",
+            "package_name": "Umrah Reguler Thaif 25",
+            "date": "0001-01-01T00:00:00Z",
+            "airline_company": "Garuda",
+            "hotel_madinah": "Anwar Al Madinah Mövenpick",
+            "hotel_makkah": "Swissôtel Al Maqam Makkah",
+            "price": 20500000
+        }
+    ],
+    "message": "success"
+}
