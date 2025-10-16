@@ -27,6 +27,7 @@ const Testimony = () => {
   }, []);
 
   const isVideo = (url) => /\.(mp4|webm|ogg)$/i.test(url);
+  console.log("Test", testimony);
 
   return (
     <div>
@@ -45,37 +46,40 @@ const Testimony = () => {
         </div>
 
         <div className="flex flex-wrap gap-4 justify-center px-4">
-          {testimony.map((media, index) =>
-            isVideo(media) ? (
+          {testimony.map((media, index) => {
+            const url = `../${media.image_path}`;
+            const isVideo = /\.(mp4|webm|ogg)$/i.test(media.image_path);
+
+            return isVideo ? (
               <video
                 key={index}
-                src={media}
+                src={url}
                 controls
                 className="
-                  object-cover 
-                  w-full 
-                  sm:w-[calc(50%-1rem)] 
-                  md:w-[calc(33.333%-1rem)] 
-                  lg:w-[calc(25%-1rem)]
-                  aspect-square
-                "
+          object-cover 
+          w-full 
+          sm:w-[calc(50%-1rem)] 
+          md:w-[calc(33.333%-1rem)] 
+          lg:w-[calc(25%-1rem)]
+          aspect-square
+        "
               />
             ) : (
               <img
                 key={index}
-                src={media}
+                src={url}
                 alt={`Media ${index}`}
                 className="
-                  object-cover 
-                  w-full 
-                  sm:w-[calc(50%-1rem)] 
-                  md:w-[calc(33.333%-1rem)] 
-                  lg:w-[calc(25%-1rem)]
-                  aspect-square
-                "
+          object-cover 
+          w-full 
+          sm:w-[calc(50%-1rem)] 
+          md:w-[calc(33.333%-1rem)] 
+          lg:w-[calc(25%-1rem)]
+          aspect-square
+        "
               />
-            )
-          )}
+            );
+          })}
         </div>
       </div>
 
