@@ -83,7 +83,9 @@ const Gallery = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {media.map((item, index) => {
-            const isVideo = item.file_path?.match(/\.(mp4|webm|ogg)$/i);
+            const isVideo = /\.(mp4|webm|ogg)$/i.test(item.image_path);
+            const url = `../${item.image_path}`;
+
             return (
               <div
                 key={index}
@@ -91,17 +93,18 @@ const Gallery = () => {
               >
                 {isVideo ? (
                   <video
-                    src={`../${item.file_path}`}
-                    className="w-full h-40 object-cover group-hover:opacity-80 transition"
+                    src={url}
                     controls
+                    className="w-full h-40 object-cover group-hover:opacity-80 transition"
                   />
                 ) : (
                   <img
-                    src={`../${item.file_path}`}
+                    src={url}
                     alt="Gallery Item"
                     className="w-full h-40 object-cover group-hover:opacity-80 transition"
                   />
                 )}
+
                 <button
                   onClick={() => handleDelete(item.id)}
                   className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition hover:scale-105 hover:cursor-pointer"
