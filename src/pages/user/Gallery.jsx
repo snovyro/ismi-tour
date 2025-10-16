@@ -46,7 +46,7 @@ const Gallery = () => {
           {gallery.map((image, index) => (
             <img
               key={index}
-              src={image.image_path}
+              src={`../${image.image_path}`}
               alt={`Image ${index}`}
               className="
                 object-cover 
