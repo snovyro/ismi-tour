@@ -9,7 +9,7 @@ const Testimony = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [file, setFile] = useState(null);
 
-  const token = Cookies.get("access_token");
+  const token = Cookies.get("token");
 
   useEffect(() => {
     fetchImages();
@@ -17,10 +17,11 @@ const Testimony = () => {
 
   const fetchImages = async () => {
     try {
-      const res = await axios.get("/api/testimony", {
-        headers: { Authorization: `Bearer ${token}` },
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/testimony`, {
+        headers: { "ngrok-skip-browser-warning": "true" },
       });
-      setImages(res.data || []);
+
+      setImages(res.data.data || []);
     } catch (err) {
       console.error("Failed to fetch images:", err);
     }
@@ -30,13 +31,14 @@ const Testimony = () => {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("file", file);
 
     try {
-      await axios.post("/api/testimony", formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/testimony`, formData, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token")}`,
           "Content-Type": "multipart/form-data",
+          "ngrok-skip-browser-warning": "true",
         },
       });
 
@@ -50,7 +52,7 @@ const Testimony = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/testimony/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/testimony/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchImages();
@@ -60,30 +62,37 @@ const Testimony = () => {
   };
 
   return (
-    <div className="flex">
-      <Sidebar />
+    <div className="relative">
+      <div className="fixed left-0 top-0 h-full w-64">
+        <Sidebar />
+      </div>
 
-      <div className="flex-1 p-6">
-        <div className="flex justify-between items-center mb-4">
+      <div className="p-6 flex-1 ml-64">
+        <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Testimonies</h1>
-          <Button onClick={() => setIsModalOpen(true)}>Add Image</Button>
+          <Button
+            width={20}
+            textColor="white"
+            bgColor="i-pink hover:bg-pink-600 transition"
+            text="Add Image"
+            onClick={() => setIsModalOpen(true)}
+          />
         </div>
 
-        {/* Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {images.map((img, index) => (
             <div
               key={index}
-              className="border rounded overflow-hidden relative"
+              className="border rounded overflow-hidden relative group"
             >
               <img
-                src={img.image_url}
+                src={`../${img.image_path}`}
                 alt="Testimony"
-                className="w-full h-40 object-cover"
+                className="w-full h-40 object-cover group-hover:opacity-80 transition"
               />
               <button
                 onClick={() => handleDelete(img.id)}
-                className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded"
+                className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition hover:scale-105 hover:cursor-pointer"
               >
                 Delete
               </button>
@@ -91,33 +100,47 @@ const Testimony = () => {
           ))}
         </div>
 
-        {/* Upload Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-            <div className="bg-white p-6 rounded shadow-md w-96">
-              <h2 className="text-lg font-semibold mb-4">Upload New Image</h2>
+          <div className="fixed inset-0 backdrop-blur-md bg-black/20 flex justify-center items-center z-50 transition-all">
+            <div className="bg-white/80 backdrop-blur-xl p-6 rounded-2xl shadow-xl border border-white/40 w-[400px] transform scale-95 animate-[fadeIn_0.2s_ease-out_forwards]">
+              <h2 className="text-xl font-bold mb-4">Upload New Image</h2>
               <input
                 type="file"
-                accept="image/*"
+                accept="image/*, video/*"
                 onChange={(e) => setFile(e.target.files[0])}
                 className="mb-4"
               />
 
-              <div className="flex justify-end space-x-2">
-                <Button
+              <div className="flex justify-end gap-4 mt-4">
+                <button
                   onClick={() => setIsModalOpen(false)}
-                  className="bg-gray-500"
+                  className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 transition"
                 >
                   Cancel
-                </Button>
-                <Button onClick={handleUpload} disabled={!file}>
+                </button>
+                <button
+                  onClick={handleUpload}
+                  disabled={!file}
+                  className={`px-4 py-2 ${
+                    file ? "bg-i-pink hover:bg-pink-600" : "bg-gray-300"
+                  } text-white rounded transition`}
+                >
                   Upload
-                </Button>
+                </button>
               </div>
             </div>
           </div>
         )}
       </div>
+
+      <style>
+        {`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: scale(0.95); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        `}
+      </style>
     </div>
   );
 };

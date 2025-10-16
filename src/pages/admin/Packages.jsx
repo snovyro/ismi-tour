@@ -102,6 +102,11 @@ const Packages = () => {
             { day_number: 2, activities: ["activity5", "activity6"] },
           ])
         );
+      } else if (key === "banner") {
+        if (formData.banner) {
+          const originalFile = formData.banner;
+          form.append("banner", originalFile);
+        }
       } else {
         form.append(key, formData[key]);
       }
@@ -123,8 +128,8 @@ const Packages = () => {
       } else {
         await axios.post(`${import.meta.env.VITE_API_URL}/packages`, form, {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${Cookies.get("token")}`,
+            "Content-Type": "multipart/form-data",
             "ngrok-skip-browser-warning": "true",
           },
         });
@@ -273,6 +278,7 @@ const Packages = () => {
                 </select>
                 <input
                   type="file"
+                  accept="image/*"
                   className="border p-2 rounded-md"
                   onChange={(e) =>
                     setFormData({ ...formData, banner: e.target.files[0] })

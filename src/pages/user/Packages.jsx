@@ -47,18 +47,23 @@ const Packages = () => {
     arrows: true,
   };
 
+  const getImageUrl = (url) => {
+    if (!url) return "";
+    const cleanedUrl = url.replace(/ /g, "%20");
+
+    return cleanedUrl.startsWith("http") ? cleanedUrl : `/${cleanedUrl}`;
+  };
+
   return (
     <div>
       <Navbar />
       <div className="relative h-fit bg-i-yellow z-20 pb-12">
-        {/* DESKTOP TITLE (unchanged) */}
         <div className="text-white text-[20rem] font-extrabold lg:flex flex-col tracking-tighter hidden md:flex">
           <h1 className="-mt-[10rem] -ml-12">
             <span>PACKAGES</span>
           </h1>
         </div>
 
-        {/* MOBILE/TABLET TITLE (stacked + smaller) */}
         <div className="md:hidden flex flex-col items-center mb-16">
           <h1 className="text-[4rem] sm:text-[8rem] font-extrabold leading-none text-white">
             PACKAGES
@@ -71,7 +76,7 @@ const Packages = () => {
               <div key={pkg.id} className="px-2 sm:px-4 mb-4">
                 <div className="w-full bg-amber-100 h-fit p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
                   <img
-                    src={`/${pkg.banner_image_url}`} // leading slash is important
+                    src={getImageUrl(pkg.banner_image_url)}
                     alt={pkg.package_name}
                     className="w-full h-full sm:h-60 object-cover mb-4"
                   />

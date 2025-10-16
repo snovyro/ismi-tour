@@ -27,7 +27,7 @@ const Sidebar = () => {
             Manage Schedules
           </button>
           <button
-            onClick={() => navigate("/dashboard/photos")}
+            onClick={() => navigate("/dashboard/gallery")}
             className="text-left hover:cursor-pointer hover:text-i-pink hover:scale-105 transition-all duration-300"
           >
             Photos Gallery
