@@ -19,7 +19,7 @@ const Login = () => {
         password,
       });
 
-      Cookies.set("token", response.data.data.token, { expires: 7 });
+      Cookies.set("token", response.data.data.token, { expires: 1 / 12 });
       navigate("/dashboard");
     } catch (error) {
       alert("Wrong Input");
@@ -49,7 +49,7 @@ const Login = () => {
 
         <Button
           text="Login"
-          redirectTo={handleLogin}
+          onClick={handleLogin}
           bgColor="i-bright-blue"
           textColor="white"
         />

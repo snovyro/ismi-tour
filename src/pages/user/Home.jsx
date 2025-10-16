@@ -205,7 +205,7 @@ const Home = () => {
 
             <Button
               text="Kirim"
-              redirectTo={() => {
+              onClick={() => {
                 const encodedMessage = encodeURIComponent(compiledMessage);
                 const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
                 window.open(whatsappURL, "_blank");

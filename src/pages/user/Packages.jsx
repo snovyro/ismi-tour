@@ -33,7 +33,7 @@ const Packages = () => {
     getPackagesData();
   }, []);
 
-  const dataToShow = packagesData;
+  console.log(packagesData);
 
   const settings = {
     dots: true,
@@ -67,13 +67,13 @@ const Packages = () => {
 
         <div className="w-full px-4 sm:px-6 md:px-8 -mt-12 flex justify-center">
           <Slider className="w-[85%] max-w-[600px] md:max-w-none" {...settings}>
-            {dataToShow.map((pkg) => (
+            {packagesData.map((pkg) => (
               <div key={pkg.id} className="px-2 sm:px-4 mb-4">
                 <div className="w-full bg-amber-100 h-fit p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
                   <img
-                    src={"https://placehold.co/800x400"}
+                    src={`/${pkg.banner_image_url}`} // leading slash is important
                     alt={pkg.package_name}
-                    className="w-full h-40 sm:h-60 object-cover mb-4"
+                    className="w-full h-full sm:h-60 object-cover mb-4"
                   />
 
                   <h2 className="text-xl sm:text-2xl font-bold mb-2 text-i-dark h-16">
@@ -103,7 +103,7 @@ const Packages = () => {
                   <Button
                     bgColor="i-dark"
                     textColor="i-yellow"
-                    redirectTo={() => handleClick(pkg.package_name)}
+                    onClick={() => handleClick(pkg.package_name)}
                     text="Book Now"
                   />
                 </div>

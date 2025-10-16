@@ -7,12 +7,12 @@ const Button = (props) => {
     textColor = "i-dark",
     text,
     width,
-    redirectTo,
+    onClick,
   } = props;
 
   return (
     <div
-      onClick={redirectTo}
+      onClick={onClick}
       style={{ width: width ? `${width}rem` : "100%" }}
       className={`
         relative overflow-hidden 
