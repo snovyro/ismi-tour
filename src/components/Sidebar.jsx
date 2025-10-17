@@ -2,9 +2,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logos/Logo-custom-2.png";
 import Button from "../components/Button";
+import Cookies from "js-cookie";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e?.preventDefault?.();
+    Cookies.remove("token");
+    window.location.reload();
+  };
 
   return (
     <div className="fixed left-0 top-0 h-full w-64 border-r border-black flex flex-col justify-between p-6 bg-i-bright-blue">
@@ -46,7 +53,7 @@ const Sidebar = () => {
         bgColor="i-pink"
         bgColorHover="i-dark"
         textColor="white"
-        onClick={() => navigate("/login")}
+        onClick={handleLogout}
       />
     </div>
   );
