@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Button from "../../components/Button";
@@ -15,6 +16,9 @@ const Home = () => {
     packages.data.packages[0]?.package_name || ""
   );
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+  const aboutRef = useRef(null);
 
   const compiledMessage = useMemo(() => {
     return name
@@ -74,12 +78,18 @@ const Home = () => {
             bgColor="white"
             bgColorHover="i-yellow"
             text="Get Started"
+            onClick={() => {
+              aboutRef.current?.scrollIntoView({ behavior: "smooth" });
+            }}
           />
         </div>
       </div>
 
       {/* ABOUT SECTION */}
-      <div className="w-full relative h-[auto] lg:h-[48rem] bg-i-pink py-20 lg:py-0">
+      <div
+        ref={aboutRef}
+        className="w-full relative h-[auto] lg:h-[48rem] bg-i-pink py-20 lg:py-0"
+      >
         <div className="w-full h-full flex flex-col items-center lg:items-end text-i-dark">
           <h2 className="relative z-2 text-[4rem] sm:text-[8rem] lg:text-[20rem] tracking-tighter font-extrabold -mt-[2rem] lg:-mt-[10rem]">
             ABOUT
@@ -111,6 +121,7 @@ const Home = () => {
               bgColor="white"
               bgColorHover="i-yellow"
               text="Learn More"
+              onClick={() => navigate("/about")}
             />
           </div>
         </div>
@@ -158,7 +169,7 @@ const Home = () => {
         <div className="w-full pb-32 px-6 sm:px-12 md:px-20 lg:px-32 flex flex-col lg:flex-row gap-8 lg:gap-16 items-center justify-center text-i-dark ">
           <iframe
             className="w-full lg:w-full h-64 sm:h-80 md:h-96 lg:h-full"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.06550733093!2d106.14049697587583!3d-6.121885793864781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e418adbcdf7e995%3A0x2f202baab2481f02!2sJl.%20Empat%20Lima%20No.31%2C%20Serang%2C%20Kec.%20Serang%2C%20Kota%20Serang%2C%20Banten%2042116!5e0!3m2!1sen!2sid!4v1759913751785!5m2!1sen!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.058200854214!2d106.14056297587587!3d-6.122869593863802!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e418baf367c435d%3A0x1cf4802a79f2287c!2sSatu%20Tempat%20caffe%20%26%20Eatery!5e0!3m2!1sen!2sid!4v1760689952415!5m2!1sen!2sid"
             style={{ border: 0 }}
             allowFullScreen=""
             loading="lazy"

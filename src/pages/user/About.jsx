@@ -54,7 +54,7 @@ const About = () => {
       {/* VISI & MISI Section */}
       <section className="relative flex flex-col items-center justify-center py-32 overflow-hidden bg-i-pink">
         {/* DESKTOP BACKGROUND TITLE */}
-        <div className="absolute w-full flex flex-col gap-0 top-20 z-10 select-none bg-i-pink -ml-20 hidden md:flex">
+        <div className="absolute w-full flex-col gap-0 top-20 z-10 select-none bg-i-pink -ml-20 hidden 2xl:flex">
           <h2 className="text-[14rem] sm:text-[18rem] font-extrabold leading-none tracking-tighter text-i-dark/100">
             VISI &
           </h2>
@@ -64,7 +64,7 @@ const About = () => {
         </div>
 
         {/* MOBILE/TABLET TITLES */}
-        <div className="md:hidden flex flex-col items-center mb-16">
+        <div className="2xl:hidden flex flex-col items-center mb-16">
           <h2 className="text-[6rem] sm:text-[8rem] font-extrabold leading-none tracking-tighter text-i-dark">
             VISI &
           </h2>
@@ -74,7 +74,7 @@ const About = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col w-full gap-12 mt-6 text-right items-end pr-6 sm:pr-12 md:pr-32">
+        <div className="relative z-10 flex flex-col w-full gap-12 mt-6 text-right items-center 2xl:items-end pr-6 md:pr-12 2xl:pr-32">
           <p className="text-base sm:text-lg lg:text-xl max-w-3xl text-justify px-6 sm:px-0">
             Menjadi penyelenggara perjalanan ibadah Umroh yang{" "}
             <span className="font-semibold">

@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./App.css";
 
@@ -16,7 +18,13 @@ import AdminSchedules from "./pages/admin/Schedules";
 import AdminGallery from "./pages/admin/Gallery";
 import AdminTestimony from "./pages/admin/Testimony";
 
-import { Navigate } from "react-router-dom";
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function ProtectedRoute({ children }) {
   const token = Cookies.get("token");
@@ -29,6 +37,7 @@ function ProtectedRoute({ children }) {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop /> {/* 👈 This ensures auto scroll to top on route change */}
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
