@@ -1,9 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Belleza&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'TopLuxury';
+  src: url('./assets/fonts/TOPLUXURY.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'DINAlternate';
+  src: url('./assets/fonts/DIN Alternate Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @import "tailwindcss";
 
 @theme {
-  --color-i-neon-green: #A3FF12;
-  --color-i-bright-blue: #2E66E5;
-  --color-i-yellow: #FFEA00;
-  --color-i-pink: #F7AEE6;
-  --color-i-dark: #302D2F;
+  --color-hamptoon: #EAD3AA;
+  --color-jungle-green: #233427;
+  --color-timberwolf: #E3D9CF;
+  --color-c-black: #030303;
+
+  --font-roboto: 'Roboto', sans-serif;
+  --font-belleza: 'Belleza', sans-serif;
+  --font-topluxury: 'TopLuxury', serif;
+  --font-dinalternate: 'DINAlternate', serif;
 }

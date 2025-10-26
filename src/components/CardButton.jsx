@@ -12,9 +12,9 @@ const CardButton = (props) => {
       </p>
       <Button
         text="Learn More"
-        bgColor="i-pink"
+        bgColor="jungle-green"
         textColor="white"
-        bgColorHover="i-dark"
+        bgColorHover="c-black"
       />
     </div>
   );

@@ -2,9 +2,9 @@ import React from "react";
 
 const Button = (props) => {
   const {
-    bgColor = "i-yellow",
-    bgColorHover = "i-dark",
-    textColor = "i-dark",
+    bgColor = "timberwolf",
+    bgColorHover = "c-black",
+    textColor = "c-black",
     text,
     width,
     onClick,

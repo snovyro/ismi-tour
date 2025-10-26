@@ -174,7 +174,7 @@ const Schedules = () => {
           <Button
             width={20}
             textColor="white"
-            bgColor="i-pink hover:bg-pink-600 transition"
+            bgColor="jungle-green hover:bg-pink-600 transition"
             text="Add Schedule"
             onClick={openAddModal}
           />
@@ -228,7 +228,7 @@ const Schedules = () => {
                             text="Delete"
                             width={12}
                             textColor="white"
-                            bgColor="i-pink hover:bg-pink-600 transition"
+                            bgColor="jungle-green hover:bg-pink-600 transition"
                             onClick={() => handleDelete(id)}
                           />
                         </div>
@@ -305,7 +305,7 @@ const Schedules = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-i-pink text-white rounded hover:bg-pink-600 transition"
+                  className="px-4 py-2 bg-jungle-green text-white rounded hover:bg-pink-600 transition"
                 >
                   Save
                 </button>

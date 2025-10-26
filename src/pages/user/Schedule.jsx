@@ -5,17 +5,24 @@ import Footer from "../../components/Footer";
 
 const Schedule = () => {
   const [schedulesData, setSchedulesData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Helper: Format date safely
   const formatDate = (iso) => {
     if (!iso) return "-";
     const d = new Date(iso);
     if (isNaN(d)) return "-";
-    return d.toLocaleDateString();
+    return d.toLocaleDateString("id-ID", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
   };
 
+  // Helper: Format price safely
   const formatPrice = (p) => {
-    if (p == null) return "-";
-    return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    if (p == null || isNaN(p)) return "-";
+    return p.toLocaleString("id-ID");
   };
 
   useEffect(() => {
@@ -25,9 +32,12 @@ const Schedule = () => {
           `${import.meta.env.VITE_API_URL}/schedules`,
           { headers: { "ngrok-skip-browser-warning": "true" } }
         );
-        setSchedulesData(response.data.data);
+        setSchedulesData(response.data?.data || []);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching schedules:", error);
+        setSchedulesData([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -35,59 +45,77 @@ const Schedule = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
-      <div className="relative h-fit bg-i-yellow z-20 pb-12">
-        {/* Desktop Title (unchanged) */}
-        <div className="text-white text-[20rem] font-extrabold flex flex-col tracking-tighter hidden md:flex">
-          <h1 className="-mt-[10rem] -ml-12">
-            <span>SCHEDULES</span>
-          </h1>
-        </div>
 
-        {/* Mobile Title */}
-        <div className="md:hidden flex flex-col items-center mb-12">
-          <h1 className="text-[4rem] sm:text-[8rem] font-extrabold leading-none text-white">
-            SCHEDULES
-          </h1>
-        </div>
+      {/* HERO SECTION */}
+      <section className="w-full flex flex-col items-center justify-center text-center py-24 bg-timberwolf">
+        <h1 className="font-topluxury text-6xl sm:text-7xl md:text-8xl text-jungle-green tracking-wide mb-4">
+          Schedules
+        </h1>
+        <p className="text-c-black text-lg sm:text-xl max-w-2xl leading-relaxed px-6">
+          Jadwal perjalanan terbaik yang telah kami siapkan untuk pengalaman
+          ibadah yang penuh makna dan ketenangan.
+        </p>
+      </section>
 
-        {/* Table Container */}
-        <div className="w-full md:px-72 px-4 -mt-12 min-h-120 lg:min-h-60 overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[700px] md:min-w-full lg:mt-0 mt-12">
-            <thead>
-              <tr className="border-b">
-                <th className="py-2 min-w-[250px]">Package</th>
-                <th className="py-2 min-w-[100px]">Date</th>
-                <th className="py-2 min-w-[100px]">Airline</th>
-                <th className="py-2 min-w-[250px]">Hotel (Madinah)</th>
-                <th className="py-2 min-w-[250px]">Hotel (Makkah)</th>
-                <th className="py-2 min-w-[100px]">Price (IDR)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {schedulesData.length === 0 ? (
+      {/* SCHEDULE TABLE */}
+      <section className="w-full py-16 flex flex-col items-center justify-center bg-white">
+        <div className="w-[90%] md:w-[85%] lg:w-[75%] overflow-x-auto">
+          {loading ? (
+            <div className="text-center text-c-black text-lg py-24">
+              Sedang memuat jadwal perjalanan...
+            </div>
+          ) : schedulesData.length === 0 ? (
+            <div className="text-center text-c-black text-lg py-24">
+              Tidak ada jadwal yang tersedia saat ini.
+            </div>
+          ) : (
+            <table className="w-full border-collapse text-left shadow-md rounded-2xl overflow-hidden">
+              <thead className="bg-timberwolf text-jungle-green font-semibold">
                 <tr>
-                  <td colSpan={6} className="py-4 text-center">
-                    No schedules available
-                  </td>
+                  <th className="py-4 px-4 min-w-[180px]">Package</th>
+                  <th className="py-4 px-4 min-w-[120px]">Date</th>
+                  <th className="py-4 px-4 min-w-[120px]">Airline</th>
+                  <th className="py-4 px-4 min-w-[200px]">Hotel (Madinah)</th>
+                  <th className="py-4 px-4 min-w-[200px]">Hotel (Makkah)</th>
+                  <th className="py-4 px-4 min-w-[120px] text-right">
+                    Price (IDR)
+                  </th>
                 </tr>
-              ) : (
-                schedulesData.map((s) => (
-                  <tr key={s.id} className="border-b last:border-b-0">
-                    <td className="py-3">{s.package_name}</td>
-                    <td className="py-3">{formatDate(s.date)}</td>
-                    <td className="py-3">{s.airline_company}</td>
-                    <td className="py-3">{s.hotel_madinah}</td>
-                    <td className="py-3">{s.hotel_makkah}</td>
-                    <td className="py-3">{formatPrice(s.price)}</td>
+              </thead>
+              <tbody>
+                {schedulesData.map((s) => (
+                  <tr
+                    key={s.id}
+                    className="border-b hover:bg-timberwolf transition-all duration-200"
+                  >
+                    <td className="py-4 px-4 font-medium text-c-black">
+                      {s.package_name || "-"}
+                    </td>
+                    <td className="py-4 px-4 text-c-black">
+                      {formatDate(s.date)}
+                    </td>
+                    <td className="py-4 px-4 text-c-black">
+                      {s.airline_company || "-"}
+                    </td>
+                    <td className="py-4 px-4 text-c-black">
+                      {s.hotel_madinah || "-"}
+                    </td>
+                    <td className="py-4 px-4 text-c-black">
+                      {s.hotel_makkah || "-"}
+                    </td>
+                    <td className="py-4 px-4 text-right font-semibold text-jungle-green">
+                      {formatPrice(s.price)}
+                    </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
-      </div>
+      </section>
+
       <Footer />
     </div>
   );

@@ -14,7 +14,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="fixed left-0 top-0 h-full w-64 border-r border-black flex flex-col justify-between p-6 bg-i-bright-blue">
+    <div className="fixed left-0 top-0 h-full w-64 border-r border-black flex flex-col justify-between p-6 bg-jungle-green">
       <div>
         <div className="w-full h-fit justify-center items-center flex mb-10">
           <img className="h-24" src={logo} alt="Logo" />
@@ -23,25 +23,25 @@ const Sidebar = () => {
           <p className="font-bold text-xl">ISMI Dashboard</p>
           <button
             onClick={() => navigate("/dashboard/packages")}
-            className="text-left hover:cursor-pointer hover:text-i-pink hover:scale-105 transition-all duration-300"
+            className="text-left hover:cursor-pointer hover:text-jungle-green hover:scale-105 transition-all duration-300"
           >
             Manage Packages
           </button>
           <button
             onClick={() => navigate("/dashboard/schedules")}
-            className="text-left hover:cursor-pointer hover:text-i-pink hover:scale-105 transition-all duration-300"
+            className="text-left hover:cursor-pointer hover:text-jungle-green hover:scale-105 transition-all duration-300"
           >
             Manage Schedules
           </button>
           <button
             onClick={() => navigate("/dashboard/gallery")}
-            className="text-left hover:cursor-pointer hover:text-i-pink hover:scale-105 transition-all duration-300"
+            className="text-left hover:cursor-pointer hover:text-jungle-green hover:scale-105 transition-all duration-300"
           >
             Photos Gallery
           </button>
           <button
             onClick={() => navigate("/dashboard/testimony")}
-            className="text-left hover:cursor-pointer hover:text-i-pink hover:scale-105 transition-all duration-300"
+            className="text-left hover:cursor-pointer hover:text-jungle-green hover:scale-105 transition-all duration-300"
           >
             Testimony Gallery
           </button>
@@ -50,8 +50,8 @@ const Sidebar = () => {
 
       <Button
         text="Logout"
-        bgColor="i-pink"
-        bgColorHover="i-dark"
+        bgColor="jungle-green"
+        bgColorHover="c-black"
         textColor="white"
         onClick={handleLogout}
       />

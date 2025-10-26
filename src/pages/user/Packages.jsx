@@ -11,6 +11,7 @@ import Button from "../../components/Button";
 const Packages = () => {
   const phoneNumber = import.meta.env.VITE_PHONE_NUMBER;
   const [packagesData, setPackagesData] = useState([]);
+  const [loading, setLoading] = useState(true); // 👈 Loading state added
 
   const handleClick = (packageName) => {
     const compiledMessage = `Halo, saya tertarik dengan paket ${packageName}.`;
@@ -26,97 +27,131 @@ const Packages = () => {
           `${import.meta.env.VITE_API_URL}/packages`,
           { headers: { "ngrok-skip-browser-warning": "true" } }
         );
-        setPackagesData(response.data.data.packages);
-      } catch (error) {}
+        const packages = response.data?.data?.packages || [];
+        setPackagesData(packages);
+      } catch (error) {
+        console.error("Error fetching packages:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getPackagesData();
   }, []);
 
-  console.log(packagesData);
-
   const settings = {
     dots: true,
     infinite: true,
-    speed: 600,
+    speed: 700,
     slidesToShow: window.innerWidth < 768 ? 1 : 3,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 5000,
     pauseOnHover: true,
-    arrows: true,
+    arrows: false,
   };
 
   const getImageUrl = (url) => {
     if (!url) return "";
     const cleanedUrl = url.replace(/ /g, "%20");
-
     return cleanedUrl.startsWith("http") ? cleanedUrl : `/${cleanedUrl}`;
   };
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
-      <div className="relative h-fit bg-i-yellow z-20 pb-12">
-        <div className="text-white text-[20rem] font-extrabold lg:flex flex-col tracking-tighter hidden md:flex">
-          <h1 className="-mt-[10rem] -ml-12">
-            <span>PACKAGES</span>
-          </h1>
-        </div>
 
-        <div className="md:hidden flex flex-col items-center mb-16">
-          <h1 className="text-[4rem] sm:text-[8rem] font-extrabold leading-none text-white">
-            PACKAGES
-          </h1>
-        </div>
+      {/* HERO SECTION */}
+      <section className="w-full flex flex-col items-center justify-center text-center py-24 bg-timberwolf">
+        <h1 className="font-topluxury text-6xl sm:text-7xl md:text-8xl text-jungle-green tracking-wide mb-4">
+          Packages
+        </h1>
+        <p className="text-c-black text-lg sm:text-xl max-w-2xl leading-relaxed px-6">
+          Pilihan paket terbaik untuk menemanimu beribadah dengan tenang dan
+          penuh makna.
+        </p>
+      </section>
 
-        <div className="w-full px-4 sm:px-6 md:px-8 -mt-12 flex justify-center">
-          <Slider className="w-[85%] max-w-[600px] md:max-w-none" {...settings}>
-            {packagesData.map((pkg) => (
-              <div key={pkg.id} className="px-2 sm:px-4 mb-4">
-                <div className="w-full bg-amber-100 h-fit p-4 sm:p-6 shadow-md hover:shadow-lg transition-shadow duration-300">
-                  <img
-                    src={getImageUrl(pkg.banner_image_url)}
-                    alt={pkg.package_name}
-                    className="w-full h-full sm:h-60 object-cover mb-4"
-                  />
+      {/* PACKAGES SECTION */}
+      <section className="w-full py-20 flex flex-col items-center justify-center">
+        <div className="w-[90%] md:w-[80%] lg:w-[75%]">
+          {loading ? (
+            <div className="text-center text-c-black text-lg py-24 animate-pulse">
+              Sedang memuat paket perjalanan...
+            </div>
+          ) : packagesData.length > 0 ? (
+            <Slider {...settings}>
+              {packagesData.map((pkg) => (
+                <div key={pkg.id} className="px-3">
+                  <div className="bg-timberwolf rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden h-full flex flex-col justify-between">
+                    <img
+                      src={getImageUrl(pkg.banner_image_url)}
+                      alt={pkg.package_name}
+                      className="w-full h-56 object-cover"
+                    />
 
-                  <h2 className="text-xl sm:text-2xl font-bold mb-2 text-i-dark h-16">
-                    {pkg.package_name}
-                  </h2>
+                    <div className="p-6 flex flex-col flex-grow text-c-black">
+                      <h2 className="text-2xl font-semibold mb-2 text-jungle-green font-topluxury">
+                        {pkg.package_name}
+                      </h2>
+                      <p className="text-sm sm:text-base font-medium mb-1">
+                        {pkg.airline || "Maskapai tidak tersedia"}
+                      </p>
+                      <p className="text-sm sm:text-base mb-3">
+                        {pkg.hotel_madinah && pkg.hotel_makkah
+                          ? `${pkg.hotel_madinah} & ${pkg.hotel_makkah}`
+                          : "Informasi hotel belum tersedia"}
+                      </p>
 
-                  <p className="text-i-dark text-sm sm:text-base font-medium">
-                    {pkg.airline}
-                  </p>
-                  <p className="text-i-dark text-sm sm:text-base mb-2">
-                    {pkg.hotel_madinah} & {pkg.hotel_makkah}
-                  </p>
+                      <ul className="list-disc list-inside text-sm sm:text-base mb-3 leading-relaxed">
+                        {pkg.inclusions && pkg.inclusions.length > 0 ? (
+                          pkg.inclusions.map((feature, index) => (
+                            <li key={index}>{feature}</li>
+                          ))
+                        ) : (
+                          <li>Informasi fasilitas belum tersedia</li>
+                        )}
+                      </ul>
 
-                  <ul className="list-disc list-inside text-i-dark text-xs sm:text-sm mb-2">
-                    {(pkg.inclusions || []).map((feature, index) => (
-                      <li key={index}>{feature}</li>
-                    ))}
-                  </ul>
+                      <div className="mt-auto">
+                        <p className="font-semibold text-sm sm:text-base">
+                          Duration:{" "}
+                          {pkg.duration_days
+                            ? `${pkg.duration_days} days`
+                            : "Belum ditentukan"}
+                        </p>
+                        <p className="font-bold text-jungle-green text-base sm:text-lg mb-4">
+                          {pkg.price_start
+                            ? `Start from: Rp ${pkg.price_start.toLocaleString(
+                                "id-ID"
+                              )}`
+                            : "Harga belum tersedia"}
+                        </p>
 
-                  <p className="font-bold text-i-dark text-sm sm:text-base">
-                    Duration: {pkg.duration_days} days
-                  </p>
-                  <p className="font-bold text-i-dark text-sm sm:text-base mb-4">
-                    Start from: Rp {pkg.price_start.toLocaleString("id-ID")}
-                  </p>
-
-                  <Button
-                    bgColor="i-dark"
-                    textColor="i-yellow"
-                    onClick={() => handleClick(pkg.package_name)}
-                    text="Book Now"
-                  />
+                        <Button
+                          bgColor="jungle-green"
+                          textColor="white"
+                          bgColorHover="hamptoon"
+                          text="Book Now"
+                          onClick={() => handleClick(pkg.package_name)}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </Slider>
+              ))}
+            </Slider>
+          ) : (
+            <div className="text-center text-c-black text-lg py-24">
+              Belum ada paket yang tersedia saat ini.
+              <p className="text-sm text-gray-500 mt-2">
+                Silakan kembali lagi nanti untuk melihat penawaran terbaru.
+              </p>
+            </div>
+          )}
         </div>
-      </div>
+      </section>
+
       <Footer />
     </div>
   );

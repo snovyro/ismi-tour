@@ -13,13 +13,13 @@ const Gallery = () => {
       try {
         const res = await axios.get(
           `${import.meta.env.VITE_API_URL}/galleries`,
-          {
-            headers: { "ngrok-skip-browser-warning": "true" },
-          }
+          { headers: { "ngrok-skip-browser-warning": "true" } }
         );
-        setGallery(res.data.data || []);
+        const data = res?.data?.data || [];
+        setGallery(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Failed to fetch media:", err);
+        setGallery([]);
       }
     };
 
@@ -27,39 +27,46 @@ const Gallery = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
-      <div className="relative h-fit bg-i-bright-blue z-20 pb-12">
-        <div className="text-white text-[20rem] font-extrabold flex flex-col tracking-tighter hidden md:flex">
-          <h1 className="-mt-[10rem] -ml-12">
-            <span>GALLERY</span>
-          </h1>
-        </div>
 
-        <div className="md:hidden flex flex-col items-center mb-12">
-          <h1 className="text-[4rem] sm:text-[8rem] font-extrabold leading-none text-white">
-            GALLERY
-          </h1>
-        </div>
+      {/* HERO SECTION */}
+      <section className="w-full flex flex-col items-center justify-center text-center py-24 bg-timberwolf">
+        <h1 className="font-topluxury text-6xl sm:text-7xl md:text-8xl text-jungle-green tracking-wide mb-4">
+          Gallery
+        </h1>
+        <p className="text-c-black text-lg sm:text-xl max-w-2xl leading-relaxed px-6">
+          Dokumentasi perjalanan yang penuh makna dan momen indah bersama
+          jamaah.
+        </p>
+      </section>
 
-        <div className="flex flex-wrap gap-4 justify-center px-4">
-          {gallery.map((image, index) => (
-            <img
-              key={index}
-              src={`../${image.image_path}`}
-              alt={`Image ${index}`}
-              className="
-                object-cover 
-                w-full 
-                sm:w-[calc(50%-1rem)] 
-                md:w-[calc(33.333%-1rem)] 
-                lg:w-[calc(25%-1rem)]
-                aspect-square
-              "
-            />
-          ))}
+      {/* GALLERY GRID */}
+      <section className="w-full py-16 bg-white flex flex-col items-center justify-center">
+        <div className="w-[90%] md:w-[85%] lg:w-[75%]">
+          {gallery.length === 0 ? (
+            <div className="text-center text-gray-500 italic py-20">
+              Belum ada foto yang tersedia.
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {gallery.map((item, index) => (
+                <div
+                  key={index}
+                  className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  <img
+                    src={item?.image_path ? `../${item.image_path}` : ""}
+                    alt={`Gallery ${index + 1}`}
+                    className="object-cover w-full h-full aspect-square hover:scale-105 transition-transform duration-500 ease-in-out"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      </section>
 
       <Footer />
     </div>

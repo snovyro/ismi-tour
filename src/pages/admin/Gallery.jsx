@@ -75,7 +75,7 @@ const Gallery = () => {
           <Button
             width={20}
             textColor="white"
-            bgColor="i-pink hover:bg-pink-600 transition"
+            bgColor="jungle-green hover:bg-pink-600 transition"
             text="Add Media"
             onClick={() => setIsModalOpen(true)}
           />
@@ -138,7 +138,7 @@ const Gallery = () => {
                   onClick={handleUpload}
                   disabled={!file}
                   className={`px-4 py-2 ${
-                    file ? "bg-i-pink hover:bg-pink-600" : "bg-gray-300"
+                    file ? "bg-jungle-green hover:bg-pink-600" : "bg-gray-300"
                   } text-white rounded transition`}
                 >
                   Upload

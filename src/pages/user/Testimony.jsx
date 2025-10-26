@@ -32,7 +32,7 @@ const Testimony = () => {
   return (
     <div>
       <Navbar />
-      <div className="relative h-fit bg-i-bright-blue z-20 pb-12">
+      <div className="relative h-fit bg-jungle-green z-20 pb-12">
         <div className="text-white text-[20rem] font-extrabold flex flex-col tracking-tighter hidden md:flex">
           <h1 className="-mt-[10rem] -ml-12">
             <span>TESTIMONY</span>

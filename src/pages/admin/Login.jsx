@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-i-bright-blue">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-jungle-green">
       <div className="bg-white p-6 rounded-2xl shadow-md w-80">
         <h2 className="text-xl font-semibold mb-4 text-center">Login</h2>
 
@@ -50,7 +50,7 @@ const Login = () => {
         <Button
           text="Login"
           onClick={handleLogin}
-          bgColor="i-bright-blue"
+          bgColor="jungle-green"
           textColor="white"
         />
       </div>

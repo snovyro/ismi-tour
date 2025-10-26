@@ -154,7 +154,7 @@ const Packages = () => {
           <Button
             width={20}
             textColor="white"
-            bgColor="i-pink hover:bg-pink-600 transition"
+            bgColor="jungle-green hover:bg-pink-600 transition"
             text="Add Package"
             onClick={handleAdd}
           />
@@ -202,14 +202,14 @@ const Packages = () => {
                       onClick={() => handleEdit(pkg.id)}
                       width={10}
                       textColor="white"
-                      bgColor="i-pink hover:bg-pink-600 transition"
+                      bgColor="jungle-green hover:bg-pink-600 transition"
                       text="Edit"
                     />
                     <Button
                       width={10}
                       onClick={() => handleDelete(pkg.id)}
                       textColor="white"
-                      bgColor="i-pink hover:bg-pink-600 transition"
+                      bgColor="jungle-green hover:bg-pink-600 transition"
                       text="Delete"
                     />
                   </div>
@@ -295,7 +295,7 @@ const Packages = () => {
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-i-pink text-white rounded hover:bg-pink-600 transition"
+                    className="px-4 py-2 bg-jungle-green text-white rounded hover:bg-pink-600 transition"
                   >
                     Save
                   </button>
